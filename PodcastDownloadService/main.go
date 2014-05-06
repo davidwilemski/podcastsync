@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/davidwilemski/podcastsync/shared/podcast"
 	"github.com/gorilla/rpc"
 	"github.com/gorilla/rpc/json"
 )
@@ -11,14 +12,14 @@ import (
 type PodcastDownloadService struct{}
 
 // Health returns a dummy successful response for testing RPC service
-func (p *PodcastDownloadService) Health(r *http.Request, args *podcastsync.PodcastDownloadArgs, reply *podcastsync.PodcastDownloadReply) error {
+func (p *PodcastDownloadService) Health(r *http.Request, args *podcast.PodcastDownloadArgs, reply *podcast.PodcastDownloadReply) error {
 	reply.Success = true
 	reply.Message = "HI, I'm a feed parsing service!"
 	return nil
 }
 
 // Process does the real meat of this service
-func (p *PodcastDownloadService) Process(r *http.Request, args *PodcastDownloadArgs, reply *PodcastDownloadReply) error {
+func (p *PodcastDownloadService) Process(r *http.Request, args *podcast.PodcastDownloadArgs, reply *podcast.PodcastDownloadReply) error {
 	// first, fetch the file
 	reply.Success = true
 	reply.Message = "HI, I'm a feed parsing service!"
