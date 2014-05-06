@@ -3,16 +3,21 @@ package main
 import (
 	"net/http"
 
+	"expvar"
+
 	"github.com/davidwilemski/podcastsync/shared/podcast"
 	"github.com/gorilla/rpc"
 	"github.com/gorilla/rpc/json"
 )
+
+var numHealthCalls = expvar.NewInt("numHealthCalls")
 
 // PodcastDownloadService type for RPC methods used to download a file - and upload to dropbox
 type PodcastDownloadService struct{}
 
 // Health returns a dummy successful response for testing RPC service
 func (p *PodcastDownloadService) Health(r *http.Request, args *podcast.PodcastDownloadArgs, reply *podcast.PodcastDownloadReply) error {
+	numHealthCalls.Add(1)
 	reply.Success = true
 	reply.Message = "HI, I'm a feed parsing service!"
 	return nil
