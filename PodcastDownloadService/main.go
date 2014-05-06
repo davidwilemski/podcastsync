@@ -11,6 +11,7 @@ import (
 )
 
 var numHealthCalls = expvar.NewInt("numHealthCalls")
+var numProcessCalls = expvar.NewInt("numProcess")
 
 // PodcastDownloadService type for RPC methods used to download a file - and upload to dropbox
 type PodcastDownloadService struct{}
@@ -25,6 +26,7 @@ func (p *PodcastDownloadService) Health(r *http.Request, args *podcast.PodcastDo
 
 // Process does the real meat of this service
 func (p *PodcastDownloadService) Process(r *http.Request, args *podcast.PodcastDownloadArgs, reply *podcast.PodcastDownloadReply) error {
+	numProcessCalls.Add(1)
 	// first, fetch the file
 	reply.Success = true
 	reply.Message = "HI, I'm a feed parsing service!"
