@@ -24,8 +24,8 @@ func Request(url, method string, args interface{}, reply interface{}) error {
 	}
 	defer r.Close()
 
-	if status.Code < 200 || status.Code > 299 {
-		return errors.New("blah status error")
+	if !status.IsSuccess() {
+		return errors.New("response not okay: " + status.Reason)
 	}
 
 	/*	buf := new(bytes.Buffer)
