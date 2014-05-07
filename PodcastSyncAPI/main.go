@@ -21,7 +21,7 @@ type downloadReq struct {
 }
 
 func splash(c web.C, w http.ResponseWriter, r *http.Request) {
-	t, _ := template.ParseFiles("splash.html")
+	t, _ := template.ParseFiles("PodcastSyncAPI/splash.html")
 	t.Execute(w, "Hello World")
 }
 
