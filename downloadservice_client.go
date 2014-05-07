@@ -10,7 +10,7 @@ import (
 
 func main() {
 	var reply podcast.PodcastDownloadReply
-	err := jsonrpc.Request("http://localhost:9999/", "PodcastDownloadService.Health", podcast.PodcastDownloadArgs{}, &reply)
+	err := jsonrpc.Request("http://localhost:9999/", "PodcastDownloadService.Process", podcast.PodcastDownloadArgs{PodcastName: "SystemsLive", PodcastURL: "https://s3.amazonaws.com/SystemsLive/Episode42.mp3"}, &reply)
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}

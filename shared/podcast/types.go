@@ -6,6 +6,7 @@ type PodcastDownloadArgs struct {
 	FeedURL     string // Originating podcast feed's URL
 	PodcastName string // podcast name: name of the folder the podcast is put into
 	PodcastURL  string // URL with the media file's location
+	AccessToken string // Dropbox access token for making API requets
 }
 
 // PodcastDownloadReply response containing success or failure and corresponding message
