@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"regexp"
 	"text/template"
 
 	"github.com/davidwilemski/podcastsync/shared/jsonrpc"
@@ -50,8 +51,14 @@ func podcastFileDownload(c web.C, w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "success!")
 }
 
+func static(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "PodcastSyncAPI/"+r.URL.Path[1:])
+}
+
 func main() {
 	goji.Get("/", splash)
 	goji.Post("/podcast/download", podcastFileDownload)
+
+	goji.Get(regexp.MustCompile("^/static/(.+)$"), static)
 	goji.Serve()
 }
