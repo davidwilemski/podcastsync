@@ -7,7 +7,7 @@
     <script src="https://www.dropbox.com/static/api/dropbox-datastores-1.0-latest.js" type="text/javascript"></script>
     <script src="//cdn.jsdelivr.net/react/0.10.0/react-with-addons.min.js"></script>
     <script src="//cdn.jsdelivr.net/react/0.10.0/JSXTransformer.js"></script>
-    <script src="/static/podcastsync.jsx"></script>
+    <script type="text/jsx" src="/static/podcastsync.jsx"></script>
 
     <style>
         #file-url {
@@ -16,6 +16,7 @@
     </style>
 
     <script type="text/jsx">
+    /** @jsx React.DOM */
     function startApp(dbclient) {
       React.renderComponent(
         <DownloadPodcastFile dbclient={dbclient}/>,
