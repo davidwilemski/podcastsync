@@ -20,11 +20,16 @@ var DownloadPodcastFile = React.createClass({
         url: "/podcast/download",
         type: 'POST',
         data: JSON.stringify({UID: creds.uid, AccessToken: creds.token, PodcastURL: $("#file-url").val()}),
-      }).done(function(data) {
+      }).done(function(data, textStatus) {
         console.log(data)
+        console.log(textStatus);
         window.alert("success! " + data);
         this.setState({url: ""});
-      }.bind(this));
+      }.bind(this)).fail(function( jqXHR, textStatus, errorThrown ) {
+        console.log(textStatus);
+        console.log(errorThrown);
+        window.alert("Error: invalid URL");
+      });
 
       return false;
     },
