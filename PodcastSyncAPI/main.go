@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"regexp"
 	"text/template"
 
@@ -23,8 +24,13 @@ type downloadReq struct {
 }
 
 func splash(c web.C, w http.ResponseWriter, r *http.Request) {
+	p := struct {
+		Title  string
+		AppKey string
+	}{Title: "PodcastSync", AppKey: os.Getenv("PODCAST_DBAPPKEY")}
+
 	t, _ := template.ParseFiles("PodcastSyncAPI/splash.html")
-	t.Execute(w, "Hello World")
+	t.Execute(w, p)
 }
 
 func podcastFileDownload(c web.C, w http.ResponseWriter, r *http.Request) {

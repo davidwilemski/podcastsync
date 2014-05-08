@@ -25,7 +25,7 @@
     }
 
     $(function(){
-        var client = new Dropbox.Client({key: "5rwi62sv3nl0p90"});
+        var client = new Dropbox.Client({key: "{{.AppKey}}"});
 
         // Try to finish OAuth authorization.
         client.authenticate({interactive: false}, function (error) {
@@ -48,7 +48,7 @@
 
     </script>
 
-    <title>{{.}}</title>
+    <title>{{.Title}}</title>
 </head>
 <body>
     <h1>podcastsync</h1>
