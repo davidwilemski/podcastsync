@@ -50,7 +50,8 @@ func podcastFileDownload(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	u, err := url.Parse(dl.PodcastURL)
 
-	if err != nil || u.Scheme != "http" || u.Scheme != "https" {
+	if err != nil || (u.Scheme != "http" && u.Scheme != "https") {
+		log.Println(u.Scheme)
 		http.Error(w, "Podcast URL is invalid", 400)
 		return
 	}
