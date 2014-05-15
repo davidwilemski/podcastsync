@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"expvar"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -17,6 +18,9 @@ import (
 	"github.com/zenazn/goji/web"
 )
 
+var numSpashCalls = expvar.NewInt("numSplashCalls")
+var numDownloadCalls = expvar.NewInt("numDownloadCalls")
+
 type downloadReq struct {
 	UID         string
 	PodcastURL  string
@@ -24,6 +28,7 @@ type downloadReq struct {
 }
 
 func splash(c web.C, w http.ResponseWriter, r *http.Request) {
+	numSpashCalls.Add(1)
 	p := struct {
 		Title  string
 		AppKey string
@@ -34,6 +39,7 @@ func splash(c web.C, w http.ResponseWriter, r *http.Request) {
 }
 
 func podcastFileDownload(c web.C, w http.ResponseWriter, r *http.Request) {
+	numDownloadCalls.Add(1)
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		http.Error(w, "Invalid request body", 400)
