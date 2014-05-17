@@ -66,7 +66,15 @@ func podcastFileDownload(c web.C, w http.ResponseWriter, r *http.Request) {
 
 	go func() {
 		var reply podcast.PodcastDownloadReply
-		err := jsonrpc.Request("http://localhost:9999/", "PodcastDownloadService.Process", podcast.PodcastDownloadArgs{PodcastName: "SystemsLive", PodcastURL: dl.PodcastURL, AccessToken: dl.AccessToken}, &reply)
+		err := jsonrpc.Request(
+			"http://localhost:9999/",
+			"PodcastDownloadService.Process",
+			podcast.PodcastDownloadArgs{
+				PodcastName: "SystemsLive",
+				PodcastURL:  dl.PodcastURL,
+				AccessToken: dl.AccessToken,
+			},
+			&reply)
 		if err != nil {
 			log.Printf("Error with RPC call to PodcastDownloadService: %s\n", err)
 			return
